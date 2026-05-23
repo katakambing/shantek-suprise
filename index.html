@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, My Shantek! ❤️</title>
-    <!-- Using canvas-confetti for the birthday explosion effect -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --primary-pink: #ff4d6d;
             --soft-pink: #ffe6ea;
-            --accent-pink: #ffb3c1;
             --dark-text: #2d2d2d;
         }
 
@@ -29,6 +26,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--dark-text);
             padding: 20px;
+            overflow-x: hidden; /* Prevent horizontal scroll from flowers */
         }
 
         .card-container {
@@ -39,7 +37,9 @@
             max-width: 450px;
             width: 100%;
             text-align: center;
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 10; /* Keep card above flowers */
         }
 
         h1 {
@@ -76,19 +76,36 @@
         .gift-code {
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: var(--dark-text);
-            letter-spacing: 1px;
-            word-break: break-all;
             background: white;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
         }
 
+        /* Animation for Card */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Styling for Falling Flowers */
+        .flower {
+            position: fixed;
+            top: -10%;
+            font-size: 2rem;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -110,39 +127,37 @@
         </div>
 
         <div class="gift-section">
-            <div class="gift-title">🎁 Your Birthday Treat 🎁</div>
-            <!-- REPLACE THE TEXT BELOW WITH YOUR ACTUAL CODE OR LINK -->
-            <div class="gift-code">PASTE_YOUR_CODE_OR_VOUCHER_LINK_HERE</div>
+            <div class="gift-title">🎁 Special For You 🎁</div>
+            <div class="gift-code">PASTE_YOUR_GIFT_LINK_OR_MESSAGE_HERE</div>
         </div>
     </div>
 
     <script>
-        // Trigger a continuous confetti blast on window load
-        window.onload = function() {
-            var duration = 4 * 1000; // Confetti runs for 4 seconds
-            var end = Date.now() + duration;
+        // Function to create falling flowers
+        function createFlower() {
+            const flowers = ['🌸', '🌷', '🌹', '🌺', '🌻', '💐'];
+            const flower = document.createElement('div');
+            
+            // Randomly select a flower emoji
+            flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.classList.add('flower');
+            
+            // Randomize starting position horizontally
+            flower.style.left = Math.random() * 100 + 'vw';
+            
+            // Randomize fall duration (between 3s to 6s)
+            flower.style.animationDuration = Math.random() * 3 + 3 + 's';
+            
+            document.body.appendChild(flower);
 
-            (function frame() {
-                confetti({
-                    particleCount: 4,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#ff4d6d', '#ffb3c1', '#ff85a1']
-                });
-                confetti({
-                    particleCount: 4,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#ff4d6d', '#ffb3c1', '#ff85a1']
-                });
+            // Remove flower after it falls off screen to keep memory clean
+            setTimeout(() => {
+                flower.remove();
+            }, 6000);
+        }
 
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-        };
+        // Generate a new flower every 400 milliseconds
+        setInterval(createFlower, 400);
     </script>
 </body>
 </html>
