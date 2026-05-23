@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, My Shantek! ❤️</title>
+    <title>Untuk My Shantek ❤️</title>
     <style>
         :root {
             --primary-pink: #ff4d6d;
@@ -26,7 +26,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--dark-text);
             padding: 20px;
-            overflow-x: hidden; /* Prevent horizontal scroll from flowers */
+            overflow-x: hidden;
         }
 
         .card-container {
@@ -37,65 +37,78 @@
             max-width: 450px;
             width: 100%;
             text-align: center;
-            animation: fadeIn 1s ease-out;
             position: relative;
-            z-index: 10; /* Keep card above flowers */
+            z-index: 10;
         }
 
-        h1 {
+        #page1 h1 {
             color: var(--primary-pink);
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+        
+        #page1 p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .btn-buka {
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-buka:active {
+            transform: scale(0.95);
+        }
+
+        #page2 {
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .gambar-dia {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-pink);
+            margin: 0 auto 20px auto;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #page2 h2 {
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
         }
 
         .wish-text {
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1.6;
             text-align: left;
-            margin-bottom: 25px;
             white-space: pre-line;
+            color: #444;
         }
 
-        .gift-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #fff0f2;
-            border: 2px dashed var(--primary-pink);
-            border-radius: 16px;
-        }
-
-        .gift-title {
-            font-weight: bold;
-            color: var(--primary-pink);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .gift-code {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--dark-text);
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-            word-break: break-all;
-        }
-
-        /* Animation for Card */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Styling for Falling Flowers */
         .flower {
             position: fixed;
             top: -10%;
-            font-size: 2rem;
+            font-size: 1.5rem;
             z-index: 1;
             user-select: none;
             pointer-events: none;
@@ -103,16 +116,28 @@
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
+            to { transform: translateY(110vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-    <div class="card-container">
-        <h1>Happy Birthday, my shantek! ❤️</h1>
+    <audio id="laguBackground" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- PAGE 1 -->
+    <div id="page1" class="card-container">
+        <h1>Hai My Shantek... 👋</h1>
+        <p>Saya ada sediakan sesuatu yang istimewa untuk awak sempena hari ini.</p>
+        <button class="btn-buka" onclick="bukaHadiah()">Buka Sekarang 💌</button>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div id="page2" class="card-container">
+        <img src="gambar.jpeg" alt="My Shantek" class="gambar-dia">
+        
+        <h2>Happy Birthday, Mi Amor! ❤️</h2>
         
         <div class="wish-text">
             I always want to get these messages just right because I want you to know exactly how much you mean to me, without making it sound too cliché. 
@@ -125,39 +150,31 @@
 
             Happy birthday, mi amor. I love you so much.
         </div>
-
-        <div class="gift-section">
-            <div class="gift-title">🎁 Special For You 🎁</div>
-            <div class="gift-code">PASTE_YOUR_GIFT_LINK_OR_MESSAGE_HERE</div>
-        </div>
     </div>
 
     <script>
-        // Function to create falling flowers
+        function bukaHadiah() {
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "block";
+            document.getElementById("laguBackground").play();
+            setInterval(createFlower, 400);
+        }
+
         function createFlower() {
-            const flowers = ['🌸', '🌷', '🌹', '🌺', '🌻', '💐'];
+            const flowers = ['🌸', '🌷', '🌹', '🌺', '✨', '❤️'];
             const flower = document.createElement('div');
             
-            // Randomly select a flower emoji
             flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
             flower.classList.add('flower');
-            
-            // Randomize starting position horizontally
             flower.style.left = Math.random() * 100 + 'vw';
-            
-            // Randomize fall duration (between 3s to 6s)
             flower.style.animationDuration = Math.random() * 3 + 3 + 's';
             
             document.body.appendChild(flower);
 
-            // Remove flower after it falls off screen to keep memory clean
             setTimeout(() => {
                 flower.remove();
             }, 6000);
         }
-
-        // Generate a new flower every 400 milliseconds
-        setInterval(createFlower, 400);
     </script>
 </body>
 </html>
