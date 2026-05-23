@@ -12,20 +12,6 @@
         }
 
         * {
-            box-sizing: border-box;<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk My Shantek ❤️</title>
-    <style>
-        :root {
-            --primary-pink: #ff4d6d;
-            --soft-pink: #ffe6ea;
-            --dark-text: #2d2d2d;
-        }
-
-        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -78,10 +64,24 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
             transition: transform 0.2s;
+            animation: btnWiggle 2s ease-in-out infinite;
+        }
+
+        .btn-buka:hover {
+            animation: none;
+            transform: scale(1.05);
         }
 
         .btn-buka:active {
             transform: scale(0.95);
+        }
+
+        @keyframes btnWiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            15% { transform: rotate(-3deg) scale(1.03); }
+            30% { transform: rotate(3deg) scale(1.06); }
+            45% { transform: rotate(-2deg) scale(1.03); }
+            60% { transform: rotate(0deg) scale(1); }
         }
 
         #page2 {
@@ -98,12 +98,47 @@
             margin: 0 auto 20px auto;
             display: block;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .photo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 0 auto 20px auto;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 1rem;
+            animation: twinkle 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .sparkle:nth-child(1) { top: -5px; left: 50%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 15%; right: -10px; animation-delay: 0.3s; }
+        .sparkle:nth-child(3) { bottom: 15%; right: -8px; animation-delay: 0.6s; }
+        .sparkle:nth-child(4) { bottom: -5px; left: 50%; animation-delay: 0.9s; }
+        .sparkle:nth-child(5) { bottom: 15%; left: -8px; animation-delay: 1.2s; }
+        .sparkle:nth-child(6) { top: 15%; left: -10px; animation-delay: 0.45s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.6) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
         }
 
         #page2 h2 {
             color: var(--primary-pink);
             font-size: 1.5rem;
             margin-bottom: 15px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.08); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.05); }
+            56% { transform: scale(1); }
         }
 
         .wish-text {
@@ -112,6 +147,17 @@
             text-align: left;
             white-space: pre-line;
             color: #444;
+            border-right: 2px solid var(--primary-pink);
+            padding-right: 5px;
+        }
+
+        .wish-text.typing {
+            animation: blink-caret 0.7s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--primary-pink); }
         }
 
         @keyframes fadeIn {
@@ -131,6 +177,128 @@
 
         @keyframes fall {
             to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* ===== FLOWER BLOOMING TRANSITION ===== */
+        .bloom-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .bloom-petal {
+            position: absolute;
+            width: 60px;
+            height: 90px;
+            border-radius: 50% 50% 50% 0;
+            opacity: 0;
+            transform-origin: bottom center;
+        }
+
+        .bloom-center {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 10;
+            animation: centerPulse 1.8s ease-out forwards;
+        }
+
+        @keyframes centerPulse {
+            0% { opacity: 0; transform: scale(0); }
+            20% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(1.5); }
+        }
+
+        @keyframes bloomPetal {
+            0% {
+                opacity: 0;
+                transform: rotate(var(--petal-angle)) translateY(0) scale(0);
+            }
+            20% {
+                opacity: 1;
+                transform: rotate(var(--petal-angle)) translateY(-30px) scale(0.5);
+            }
+            60% {
+                opacity: 1;
+                transform: rotate(var(--petal-angle)) translateY(-80px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(var(--petal-angle)) translateY(-150px) scale(0.6);
+            }
+        }
+
+        @keyframes bloomPetalLayer2 {
+            0% {
+                opacity: 0;
+                transform: rotate(var(--petal-angle)) translateY(0) scale(0);
+            }
+            25% {
+                opacity: 1;
+                transform: rotate(var(--petal-angle)) translateY(-40px) scale(0.5);
+            }
+            65% {
+                opacity: 1;
+                transform: rotate(var(--petal-angle)) translateY(-120px) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(var(--petal-angle)) translateY(-200px) scale(0.4);
+            }
+        }
+
+        @keyframes overlayFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* ===== FLOATING HEARTS ===== */
+        .floating-heart {
+            position: fixed;
+            font-size: 1.2rem;
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+            animation: floatHeart linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ===== CARD GLOW ON PAGE2 ===== */
+        #page2.card-container {
+            animation: cardGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes cardGlow {
+            0%, 100% { box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15); }
+            50% { box-shadow: 0 10px 40px rgba(255, 77, 109, 0.3), 0 0 20px rgba(255, 182, 193, 0.3); }
         }
     </style>
 </head>
@@ -150,14 +318,29 @@
 
     <!-- PAGE 2 -->
     <div id="page2" class="card-container">
-        <img src="gambar-dia.jpg" alt="My Shantek" class="gambar-dia">
+        <div class="photo-wrapper">
+            <img src="gambar-dia.jpg" alt="My Shantek" class="gambar-dia">
+            <span class="sparkle">✨</span>
+            <span class="sparkle">💫</span>
+            <span class="sparkle">✨</span>
+            <span class="sparkle">💖</span>
+            <span class="sparkle">✨</span>
+            <span class="sparkle">💫</span>
+        </div>
         
         <h2>Happy Birthday, Mi Amor! ❤️</h2>
         
-        <div class="wish-text">
-         
-        </div>
-        Happy birthday, my shantek. ❤️
+        <div class="wish-text" id="wishText"></div>
+    </div>
+
+    <script>
+        function bukaHadiah() {
+            document.getElementById("laguBackground").play();
+            triggerBloomTransition();
+        }
+
+        // Birthday message for typewriter effect
+        const birthdayMessage = `Happy birthday, my shantek. ❤️
 
 I always try to get these messages just right because I want you to know exactly how much you mean to me. I nak you rasa how deeply I appreciate you, without making it sound too cliché.
 
@@ -167,15 +350,94 @@ Over the last couple of years, you have really become my absolute safe space. Yo
 
 I hope your birthday is as beautiful as you are. You do so much to make the people around you happy, and today is all about celebrating you. I cannot wait to spoil you and make a hundred more memories together. Nanti bila kita jumpa, I will give you your present okay baby.
 
-Happy birthday, mi amor. I love you so much
-    </div>
+Happy birthday, mi amor. I love you so much`;
 
-    <script>
-        function bukaHadiah() {
-            document.getElementById("page1").style.display = "none";
-            document.getElementById("page2").style.display = "block";
-            document.getElementById("laguBackground").play();
-            setInterval(createFlower, 400);
+        // Start floating hearts in the background
+        function startFloatingHearts() {
+            setInterval(createFloatingHeart, 2000);
+        }
+
+        function createFloatingHeart() {
+            const hearts = ['💕', '💗', '💖', '🩷', '💝'];
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+            heart.style.animationDuration = (Math.random() * 5 + 6) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 12000);
+        }
+
+        // Typewriter effect
+        function typeWriter(text, element, speed, callback) {
+            let i = 0;
+            element.classList.add('typing');
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.remove('typing');
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        function triggerBloomTransition() {
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.classList.add('bloom-overlay');
+            document.body.appendChild(overlay);
+
+            // Create center of flower
+            const center = document.createElement('div');
+            center.classList.add('bloom-center');
+            overlay.appendChild(center);
+
+            // Layer 1: inner petals (5 petals)
+            const petalColors1 = ['#ff4d6d', '#ff6b8a', '#ff85a1', '#ff4d6d', '#e8446d'];
+            for (let i = 0; i < 5; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('bloom-petal');
+                const angle = (360 / 5) * i;
+                petal.style.setProperty('--petal-angle', angle + 'deg');
+                petal.style.background = petalColors1[i];
+                petal.style.animation = `bloomPetal 1.8s ease-out ${i * 0.08}s forwards`;
+                overlay.appendChild(petal);
+            }
+
+            // Layer 2: outer petals (7 petals, slightly larger)
+            const petalColors2 = ['#ff9eb5', '#ffb3c6', '#ffc2d1', '#ff9eb5', '#ff8faa', '#ffb3c6', '#ffc2d1'];
+            for (let i = 0; i < 7; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('bloom-petal');
+                const angle = (360 / 7) * i + 15;
+                petal.style.setProperty('--petal-angle', angle + 'deg');
+                petal.style.background = petalColors2[i];
+                petal.style.width = '70px';
+                petal.style.height = '100px';
+                petal.style.animation = `bloomPetalLayer2 2s ease-out ${0.15 + i * 0.06}s forwards`;
+                overlay.appendChild(petal);
+            }
+
+            // After bloom animation, show page2 and fade out overlay
+            setTimeout(() => {
+                document.getElementById("page1").style.display = "none";
+                document.getElementById("page2").style.display = "block";
+                overlay.style.animation = 'overlayFadeOut 0.8s ease-out forwards';
+                setInterval(createFlower, 400);
+                // Start typewriter effect after page2 shows
+                const wishEl = document.getElementById("wishText");
+                typeWriter(birthdayMessage, wishEl, 30);
+            }, 1800);
+
+            // Remove overlay after fade out
+            setTimeout(() => {
+                overlay.remove();
+            }, 2600);
         }
 
         function createFlower() {
@@ -193,171 +455,9 @@ Happy birthday, mi amor. I love you so much
                 flower.remove();
             }, 6000);
         }
-    </script>
-</body>
-</html>
-            margin: 0;
-            padding: 0;
-        }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--soft-pink);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--dark-text);
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        .card-container {
-            background: white;
-            padding: 35px 25px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        #page1 h1 {
-            color: var(--primary-pink);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        
-        #page1 p {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            color: #555;
-        }
-
-        .btn-buka {
-            background-color: var(--primary-pink);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
-            transition: transform 0.2s;
-        }
-
-        .btn-buka:active {
-            transform: scale(0.95);
-        }
-
-        #page2 {
-            display: none;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .gambar-dia {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary-pink);
-            margin: 0 auto 20px auto;
-            display: block;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        #page2 h2 {
-            color: var(--primary-pink);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .wish-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            text-align: left;
-            white-space: pre-line;
-            color: #444;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .flower {
-            position: fixed;
-            top: -10%;
-            font-size: 1.5rem;
-            z-index: 1;
-            user-select: none;
-            pointer-events: none;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-
-    <audio id="laguBackground" loop>
-        <source src="lagu.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- PAGE 1 -->
-    <div id="page1" class="card-container">
-        <h1>Hai My Shantek... 👋</h1>
-        <p>Saya ada sediakan sesuatu yang istimewa untuk awak sempena hari ini.</p>
-        <button class="btn-buka" onclick="bukaHadiah()">Buka Sekarang 💌</button>
-    </div>
-
-    <!-- PAGE 2 -->
-    <div id="page2" class="card-container">
-        <img src="gambar.jpeg" alt="My Shantek" class="gambar-dia">
-        
-        <h2>Happy Birthday, Mi Amor! ❤️</h2>
-        
-        <div class="wish-text">
-            I always want to get these messages just right because I want you to know exactly how much you mean to me, without making it sound too cliché. 
-
-            I was just thinking about our date at the beach the other day. The fact that you took the time and effort to cook for me... I really, really loved it. More than just the food, it just showed me (again) how incredibly thoughtful and caring you are. It’s moments like that—just the two of us, enjoying each other's company—that constantly remind me how lucky I am to have you.
-
-            Over the last couple of years, you’ve really become my absolute safe space. You know how to calm my mind when things are stressful, and you always know how to make the simple days better. Thank you for always being there for me, for your endless patience, and for loving me the way you do. 
-
-            I hope your birthday is as beautiful as you are. You do so much to make the people around you happy, and today is all about celebrating you. I can't wait to spoil you and make a hundred more memories together. 
-
-            Happy birthday, mi amor. I love you so much.
-        </div>
-    </div>
-
-    <script>
-        function bukaHadiah() {
-            document.getElementById("page1").style.display = "none";
-            document.getElementById("page2").style.display = "block";
-            document.getElementById("laguBackground").play();
-            setInterval(createFlower, 400);
-        }
-
-        function createFlower() {
-            const flowers = ['🌸', '🌷', '🌹', '🌺', '✨', '❤️'];
-            const flower = document.createElement('div');
-            
-            flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
-            flower.classList.add('flower');
-            flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.animationDuration = Math.random() * 3 + 3 + 's';
-            
-            document.body.appendChild(flower);
-
-            setTimeout(() => {
-                flower.remove();
-            }, 6000);
-        }
+        // Start floating hearts immediately on page load
+        startFloatingHearts();
     </script>
 </body>
 </html>
